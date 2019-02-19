@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			a{
+				text-decoration: none;
+			}
+			li{
+				list-style: none;
+			}
+			.nav{
+				height: 62px;
+				width: 700px;
+				margin: 30px auto;
+			}
+			.nav li{
+				height: 60px;
+				width:80px;
+				border: 1px solid #ccc;
+				
+				line-height: 60px;
+				text-align: center;
+				font-size: 40px;
+				position: relative;
+				float:left;
+				overflow: hidden;
+			}
+			.nav li a{
+				z-index: 99;
+				display: inline-block;
+				height: 60px;
+				width:80px;
+				background: #66AFE9;
+			}
+			.nav li span{
+				display: inline-block;
+				height: 60px;
+				width: 80px;
+				position: absolute;
+				top:61px;
+				left: 0;
+				background: #ccc;
+				z-index: 0;
+				opacity: 0.7;
+			}
+		</style>
+		<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="nav">
+			<ul>
+				<li>
+					<a href="#">C</a>
+					<span></span>
+				</li>
+				<li>
+					<a href="#">D</a>
+					<span></span>
+				</li>
+				<li>
+					<a href="#">E</a>
+					<span></span>
+				</li>
+				<li>
+					<a href="#">F</a>
+					<span></span>
+				</li>
+				<li>
+					<a href="#">G</a>
+					<span></span>
+				</li>
+				<li>
+					<a href="#">A</a>
+					<span></span>
+				</li>
+				<li>
+					<a href="#">B</a>
+					<span></span>
+				</li>
+			</ul>
+		</div>
+		
+		<div>
+			<audio src="audio/1 C.mp3"></audio>
+			<audio src="audio/2 D.mp3"></audio>
+			<audio src="audio/3 E.mp3"></audio>
+			<audio src="audio/4 F.mp3"></audio>
+			<audio src="audio/5 G.mp3"></audio>
+			<audio src="audio/6 A.mp3"></audio>
+			<audio src="audio/7 B.mp3"></audio>
+		</div>
+		
+		<script type="text/javascript">
+			$(function(){
+				$(".nav li").mouseenter(function(){
+					$(this).children("span").stop().animate({top:0});
+					$("audio").get($(this).index()).load();//重新加载
+					$("audio").get($(this).index()).play();//播放
+				})
+				$(".nav li").mouseleave(function(){
+					$(this).children("span").stop().animate({top:61});
+				})
+				
+				var flag = true;
+				$(document).on("keydown",function(e){
+					if(flag){
+						flag = false;
+						var code = e.keyCode;
+						//console.log(code);
+						if(code >= 49 && code <= 55){
+							$(".nav li").eq(code - 49).mouseenter();
+						}
+						
+					}
+					
+				})
+				$(document).on("keyup",function(e){
+					flag = true;
+					var code = e.keyCode;
+					if(code >= 49 && code <= 55){
+						$(".nav li").eq(code - 49).mouseleave();
+					}
+				})
+				
+			})
+		</script>
+	</body>
+</html>
